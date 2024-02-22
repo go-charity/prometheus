@@ -1,0 +1,7 @@
+global:
+  scrape_interval: "30s"
+scrape_configs:
+- job_name: "GO.Charity Auth microservice"
+  static_configs:
+  - targets:
+    - go-charity-auth-server.onrender.com
