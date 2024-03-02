@@ -5,3 +5,10 @@ scrape_configs:
   static_configs:
   - targets:
     - go-charity-auth-server.onrender.com
+  metrics_path: /metrics
+
+- job_name: "GO.Charity Auth microservice (swagger-stats)"
+  static_configs:
+  - targets:
+    - "go-charity-auth-server.onrender.com"
+  metrics_path: /swagger-stats/metrics
