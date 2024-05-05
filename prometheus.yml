@@ -6,7 +6,7 @@ alerting:
   alertmanagers:
   - static_configs:
     - targets:
-      - alert_manager:9093
+      - alert-manager.onrender.com
 
 rule_files:
 - "/rules/my_record_rules.yml"
