@@ -1,0 +1,20 @@
+groups:
+- name: go.charity-auth-alert-rules
+  rules:
+  - alert: app_memory_rss_over_utilized
+    expr: job:nodejs_process_memory_rss_bytes:convert_to_megabytes >= 45
+    for: 1m
+    labels:
+      severity: warning
+
+  - alert: app_cpu_exceed_50
+    expr: (nodejs_process_cpu_usage_percentage * 100) >= 50
+    for: 1m
+    labels:
+      severity: warning
+
+  - alert: app_latency_exceed_5sec
+    expr: job:goa_http_duration_sum:rate1m >= 5
+    for: 1m
+    labels:
+      severity: high

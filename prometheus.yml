@@ -1,14 +1,21 @@
 global:
   scrape_interval: "30s"
-scrape_configs:
-- job_name: "GO.Charity Auth microservice"
-  static_configs:
-  - targets:
-    - go-charity-auth-server.onrender.com
-  metrics_path: /metrics
+  evaluation_interval: 30s
 
-- job_name: "GO.Charity Auth microservice (swagger-stats)"
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alert_manager:9093
+
+rule_files:
+- "/rules/my_record_rules.yml"
+- "/rules/my_alert_rules.yml"
+
+scrape_configs:
+- job_name: GO.Charity Auth microservice
+  scrape_timeout: 25s
   static_configs:
   - targets:
     - "go-charity-auth-server.onrender.com"
-  metrics_path: /swagger-stats/metrics
+  metrics_path: "/swagger-stats/metrics"

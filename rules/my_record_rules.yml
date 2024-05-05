@@ -1,0 +1,11 @@
+groups:
+- name: go.charity-auth-record-rules
+  rules:
+  - record: job:goa_http_duration_sum:rate1m
+    expr: "rate(goa_http_duration_sum[1m]) / rate(goa_http_duration_count[1m])"
+
+  - record: job:nodejs_process_memory_rss_bytes:convert_to_megabytes
+    expr: "nodejs_process_memory_rss_bytes / (1024 * 1024)"
+
+  - record: endpoint:goa_http_request_total:rate1m
+    expr: rate(goa_http_request_total[1m])
