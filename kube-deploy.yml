@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-deployment
+  labels:
+    obj: deployment
+    app: prometheus
+spec:
+  selector:
+    matchLabels:
+      obj: pod
+      app: prometheus
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        obj: pod
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus-container
+        image: gocharity/prometheus:latest
+        resources:
+          requests:
+            cpu: 150m
+            memory: 10Mi
+          limits:
+            cpu: 250m
+            memory: 20Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  labels:
+    obj: service
+    app: prometheus
+spec:
+  selector:
+    obj: pod
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+  type: LoadBalancer
